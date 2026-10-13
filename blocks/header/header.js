@@ -100,19 +100,74 @@ export default async function decorate(block) {
   block.textContent = '';
   const nav = document.createElement('nav');
   nav.id = 'nav';
+  const topBarContent = fragment.lastElementChild;
+  if (topBarContent) {
+    const topbar = document.createElement('div');
+    topbar.className = 'nav-topbar';
+    const wrapper = topBarContent.firstElementChild;
+    const items = [...wrapper.children];
+    const left = document.createElement('div');
+    left.classList.add('nav-topbar-left');
+    const address = document.createElement('span');
+    address.classList.add('topbar-address');
+    address.innerHTML = `<i class="fa fa-home"></i>${items[0].textContent}`;
+    const phone = document.createElement('span');
+    phone.classList.add('topbar-phone');
+    phone.innerHTML = `<i class="fa fa-mobile"></i>${items[1].innerHTML}`;
+    const email = document.createElement('span');
+    email.classList.add('topbar-email');
+    email.innerHTML = `<i class="fa fa-envelope"></i>${items[2].innerHTML}`;
+    left.append(address, phone, email);
+    topbar.append(left);
+    const right = document.createElement('div');
+    right.classList.add('nav-topbar-right');
+    const timings = document.createElement('p');
+    timings.classList.add('topbar-hours');
+    timings.innerHTML = `<i class="fa fa-clock"></i>${items[3].textContent.trim()}`;
+    const socials = document.createElement('ul');
+    socials.classList.add('topbar-socials');
+    const socialIcons = {
+      facebook: 'fa-brands fa-facebook-f',
+      twitter: 'fa-brands fa-x-twitter',
+      instagram: 'fa-brands fa-instagram',
+    };
+    items.slice(4).forEach((item) => {
+      const anchor = item.querySelector('a');
+      if (!anchor) return;
+      const text = anchor.textContent.trim().toLowerCase();
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = anchor.href;
+      a.title = text;
+      a.target = '_blank';
+      const icon = document.createElement('i');
+      icon.className = socialIcons[text] || '';
+      a.append(icon);
+      li.append(a);
+      socials.append(li);
+    });
+    right.append(timings, socials);
+    topbar.append(right);
+    topBarContent.innerHTML = '';
+    topBarContent.append(topbar);
+    topBarContent.classList.add('topbar-wrapper');
+    fragment.removeChild(topBarContent);
+  }
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
-
-  const classes = ['brand', 'sections', 'tools'];
+  // We explicitly assign classes so the button gets 'nav-cta'
+  const classes = ['brand', 'sections', 'tools', 'cta'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
     if (section) section.classList.add(`nav-${c}`);
   });
 
   const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
+  if (navBrand) {
+    const brandLink = navBrand.querySelector('.button');
+    if (brandLink) {
+      brandLink.className = '';
+      brandLink.closest('.button-container').className = '';
+    }
   }
 
   const navSections = nav.querySelector('.nav-sections');
@@ -156,5 +211,28 @@ export default async function decorate(block) {
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
+  if (topBarContent) {
+    block.append(topBarContent);
+  }
   block.append(navWrapper);
+
+  // -----------------------------------------------------------------
+  // SCROLL & STICKY LOGIC
+  // -----------------------------------------------------------------
+  const OFFSET = 50;
+
+  const updateStickyHeader = () => {
+    const headerHeight = block.offsetHeight;
+
+    document.body.classList.toggle(
+      'header-scrolled',
+      window.scrollY > headerHeight + OFFSET
+    );
+  };
+
+  window.addEventListener('scroll', updateStickyHeader);
+  window.addEventListener('resize', updateStickyHeader);
+
+// Initial check
+  updateStickyHeader();
 }
