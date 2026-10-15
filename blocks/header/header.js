@@ -110,26 +110,26 @@ export default async function decorate(block) {
     left.classList.add('nav-topbar-left');
     const address = document.createElement('span');
     address.classList.add('topbar-address');
-    address.innerHTML = `<i class="fa fa-home"></i>${items[0].textContent}`;
+    address.innerHTML = `<i class="ti ti-home"></i>${items[0].textContent}`;
     const phone = document.createElement('span');
     phone.classList.add('topbar-phone');
-    phone.innerHTML = `<i class="fa fa-mobile"></i>${items[1].innerHTML}`;
+    phone.innerHTML = `<i class="ti ti-mobile"></i>${items[1].innerHTML}`;
     const email = document.createElement('span');
     email.classList.add('topbar-email');
-    email.innerHTML = `<i class="fa fa-envelope"></i>${items[2].innerHTML}`;
+    email.innerHTML = `<i class="ti ti-email"></i>${items[2].innerHTML}`;
     left.append(address, phone, email);
     topbar.append(left);
     const right = document.createElement('div');
     right.classList.add('nav-topbar-right');
     const timings = document.createElement('p');
     timings.classList.add('topbar-hours');
-    timings.innerHTML = `<i class="fa fa-clock"></i>${items[3].textContent.trim()}`;
+    timings.innerHTML = `<i class="ti ti-time"></i>${items[3].textContent.trim()}`;
     const socials = document.createElement('ul');
     socials.classList.add('topbar-socials');
     const socialIcons = {
-      facebook: 'fa-brands fa-facebook-f',
+      facebook: 'ti ti-facebook',
       twitter: 'fa-brands fa-x-twitter',
-      instagram: 'fa-brands fa-instagram',
+      instagram: 'ti ti-instagram',
     };
     items.slice(4).forEach((item) => {
       const anchor = item.querySelector('a');
