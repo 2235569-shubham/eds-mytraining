@@ -153,10 +153,10 @@ export default async function decorate(block) {
 
   // Replace social media text with Font Awesome icons
   const socialIcons = {
-    facebook: 'fa-brands fa-facebook-f',
+    facebook: 'ti ti-facebook',
     twitter: 'fa-brands fa-x-twitter',
-    instagram: 'fa-brands fa-instagram',
-    dribbble: 'fa-brands fa-dribbble'
+    instagram: 'ti ti-instagram',
+    dribbble: 'ti ti-dribbble'
   };
 
   block.querySelectorAll('.carousel-slide-content a').forEach((link) => {
