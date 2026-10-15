@@ -1,0 +1,53 @@
+.icon-list > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+    gap: 24px;
+}
+
+.icon-list > ul > li {
+    background-color: #FFFFFF;
+    padding: 20px 20px 15px 20px;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
+}
+
+.icon-list .icon-list-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-list .icon-list-icon-container {
+    line-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*.icon-list > ul > li img {*/
+/*    width: 40px;*/
+/*    object-fit: cover;*/
+/*}*/
+.icon-list .icon-list-icon-container svg {
+    width: 40px;
+    height: 40px;
+    display: block;
+    color: #0659d4;
+}
+
+.icon-list .icon-list-icon-container svg path {
+    fill: currentColor;
+}
+
+.icon-list-content > h2 {
+    margin-top: 8px;
+    color: #0659d4;
+}
+
+.icon-list-content > p {
+    padding: 0;
+    margin: 0;
+}
