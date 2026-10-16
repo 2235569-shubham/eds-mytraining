@@ -31,15 +31,9 @@
 /*    width: 40px;*/
 /*    object-fit: cover;*/
 /*}*/
-.icon-list .icon-list-icon-container svg {
-    width: 40px;
-    height: 40px;
-    display: block;
+.icon-list .icon-list-icon-container i {
+    font-size: 50px;
     color: #0659d4;
-}
-
-.icon-list .icon-list-icon-container svg path {
-    fill: currentColor;
 }
 
 .icon-list-content > h2 {
