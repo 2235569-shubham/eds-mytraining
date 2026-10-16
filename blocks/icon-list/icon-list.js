@@ -35,7 +35,7 @@ function renderIconClass(cell) {
 
   const icon = document.createElement('i');
   icon.className = raw;
-  icon.setAttribute('aria-hidden'. 'true');
+  icon.setAttribute('aria-hidden', 'true');
   cell.replaceChildren(icon);
   return true;
 }
