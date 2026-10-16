@@ -1,40 +1,3 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
-
-async function inlineSvg(picture) {
-  const img = picture.querySelector('img');
-  if (!img) return;
-
-  try {
-    const response = await fetch(img.src);
-    if (!response.ok) return;
-
-    const contentType = response.headers.get('content-type') || '';
-    if (!contentType.includes('svg')) return;
-
-    const svgText = await response.text();
-    const svg = new DOMParser()
-      .parseFromString(svgText, 'image/svg+xml')
-      .querySelector('svg');
-    if (!svg) return;
-
-    if (!svg.getAttribute('viewBox')) {
-      const width = parseFloat(svg.getAttribute('width'));
-      const height = parseFloat(svg.getAttribute('height'));
-      if (width && height) svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-    }
-
-    svg.removeAttribute('width');
-    svg.removeAttribute('height');
-    svg.classList.add('icon-list-svg');
-    svg.setAttribute('role', 'img');
-    if (img.alt) svg.setAttribute('aria-label', img.alt);
-
-    picture.replaceWith(svg);
-  } catch {
-    // leave original <picture> as fallback
-  }
-}
-
 function animateCounter(element, duration = 4000) {
   const originalText = element.textContent.trim();
   const target = parseInt(originalText.replace(/\D/g, ''), 10);
@@ -66,6 +29,17 @@ function observeCounters(block, counters) {
   observer.observe(block);
 }
 
+function renderIconClass(cell) {
+  const raw = cell.textContent.trim();
+  if (!raw) return false;
+
+  const icon = document.createElement('i');
+  icon.className = raw;
+  icon.setAttribute('aria-hidden'. 'true');
+  cell.replaceChildren(icon);
+  return true;
+}
+
 export default async function decorate(block) {
   const ul = document.createElement('ul');
 
@@ -74,17 +48,13 @@ export default async function decorate(block) {
     while (row.firstElementChild) {
       li.append(row.firstElementChild);
     }
-    [...li.children].forEach((div) => {
-      div.className = div.querySelector('picture')
-        ? 'icon-list-icon-container'
-        : 'icon-list-content';
+    [...li.children].forEach((div, index) => {
+      const isIcon = index === 0 && renderIconClass(div);
+      div.className = isIcon ? 'icon-list-icon-container' : 'icon-list-content';
     });
     ul.append(li);
   });
   block.replaceChildren(ul);
-
-  const pictures = block.querySelectorAll('.icon-list-icon-container picture');
-  await Promise.all([...pictures].map(inlineSvg));
-
+  
   observeCounters(block, block.querySelectorAll('.icon-list-content h2'));
 }
