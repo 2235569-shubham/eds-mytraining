@@ -20,7 +20,7 @@
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     overflow: scroll clip;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .carousel .carousel-slides::-webkit-scrollbar {
