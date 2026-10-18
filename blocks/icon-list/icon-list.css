@@ -45,3 +45,40 @@
     padding: 0;
     margin: 0;
 }
+
+/* ==========================================
+   Hover Card Variation
+   .icon-list.hover-variation
+   ========================================== */
+
+.icon-list.hover-variation > ul > li {
+    text-align: center;
+    padding: 28px 24px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.icon-list.hover-variation .icon-list-content p:first-child {
+    margin: 12px 0 10px;
+    font-size: 20px;
+}
+
+/* hover state */
+.icon-list.hover-variation > ul > li:hover {
+    background-color: #0659d4;
+}
+
+/* change icon color on hover */
+.icon-list.hover-variation > ul > li:hover .icon-list-icon-container i {
+    color: #fff;
+}
+
+/* change title color on hover */
+.icon-list.hover-variation > ul > li:hover .icon-list-content p:first-child {
+    color: #fff;
+}
+
+/* change description color on hover */
+.icon-list.hover-variation > ul > li:hover .icon-list-content p:last-child {
+    color: #fff;
+}
