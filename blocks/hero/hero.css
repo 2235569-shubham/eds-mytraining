@@ -1,37 +1,78 @@
+/*Add clip-path to restrict the fixed background from bleeding into other sections */
+.hero-container {
+    clip-path: inset(0);
+}
+
 .hero-container .hero-wrapper {
-  max-width: unset;
-  padding: 0;
+    max-width: unset;
+    padding: 0;
 }
 
 .hero {
-  position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+    position: relative;
+    padding: 40px 24px;
+    min-height: 300px;
+    align-content: center;
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
+/* Change picture to fixed to create the scroll effect */
 .hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
 }
 
 .hero img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
-@media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
-  }
+/* Overlay sits on top of image only */
+.hero picture::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.hero-section > p:first-child {
+    width: 100%;
+    color: #fff;
+}
+
+.hero-section > h1 {
+    color: var(--background-color, #ffffff);
+    width: 60%;
+    margin-top: 0;
+}
+
+.hero-section > .button-wrapper {
+    margin-left: auto;
+}
+
+.hero-section > .button-wrapper a {
+    background-color: #0659d4;
+    border-color: #0659d4;
+    padding: 20px 40px 20px 40px;
+    transition: 1s;
+    border-radius: 5px;
+}
+
+.hero-section > .button-wrapper a:hover {
+    background-color: #15263B;
+    border-color: #15263B;
 }
